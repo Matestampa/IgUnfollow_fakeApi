@@ -1,0 +1,19 @@
+{
+    "colo": {
+        "user_id": "coloID",
+        "cant_followers": 200,
+        "isPrivate": false
+    },
+
+    "yapu": {
+        "user_id": "yapuID",
+        "cant_followers": 300,
+        "isPrivate": true
+    },
+
+    "tute": {
+        "user_id": "tuteID",
+        "cant_followers": 2000,
+        "isPrivate": false
+    }
+}
