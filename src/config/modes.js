@@ -2,7 +2,8 @@ const RESPONSE_MODES={
     NORMAL:(behav)=>new Normal_ResponseMode(),
     ERR_AUTH:(behav)=>new ErrAuth_ResponseMode(behav),
     ERR_BAN:(behav)=>new ErrBan_ResponseMode(behav),
-    ERR_UNKN:(behav)=>new ErrUnknown_ResponseMode()
+    ERR_UNKN:(behav)=>new ErrUnknown_ResponseMode(),
+    ERR_LOGIN:(behav)=>new ErrBadLogin_ResponseMode(behav)
 }
 
 const ERROR_BEHAVIOURS={
@@ -20,7 +21,7 @@ class ResponseMode {
 
     }
     get_json(data,reqId){
-       return this.p__get_json(data);
+       return this.p__get_json(data,reqId);
     }
 
     p__get_json(){}
@@ -65,7 +66,7 @@ class ErrBan_ResponseMode extends ResponseMode{
 
     p__get_json(data,reqId){
         if (this.MidError_Mode.should_retError(reqId)){
-            return {require_login:true};
+            return {bann_error:true};
         }
         else{
             return {data:data};
@@ -80,6 +81,26 @@ class ErrUnknown_ResponseMode extends ResponseMode{
 
     p__get_json(data,reqId){
         return {unknown_error:true};
+    }
+}
+
+
+class ErrBadLogin_ResponseMode extends ResponseMode{
+    constructor(behavRule){
+        super(behavRule);
+        if (behavRule){
+            this.MidError_Mode=new InMidError_Mode(behavRule);
+        }
+
+    }
+
+    p__get_json(data,reqId){
+        if (this.MidError_Mode.should_retError(reqId)){
+            return {status:"fail"};
+        }
+        else{
+            return {data:data};
+        }
     }
 }
 

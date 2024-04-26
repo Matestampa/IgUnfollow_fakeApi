@@ -4,7 +4,8 @@ const PORT = 2000;
 
 const {load_allData}=require("./utils.js")
 
-const {fakeApi_userInfo,fakeApi_followers}=require("./controllers/main.js")
+const {fakeApi_userInfo,fakeApi_followers,
+       fakeApi_login}=require("./controllers/main.js")
 
 app.use(express.json());
 
@@ -16,10 +17,9 @@ app.get('/FAKE_user_info/:username',fakeApi_userInfo );
 app.get('/FAKE_followers/:user_id/:cursor',fakeApi_followers);
 
 // Tercer endpoint
-app.get('/auth', (req, res) => {
- 
-});
+app.get('/FAKE_login/:username/:password',fakeApi_login);
 
+//Cargar data de los archivos a memoria
 load_allData();
 
 // Iniciar el servidor

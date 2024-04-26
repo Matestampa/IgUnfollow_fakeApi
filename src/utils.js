@@ -36,7 +36,7 @@ let names_id_mapData;
 //let followersData;
 
 function load_allData(ret){
-    names_id_mapData=Storage_Access.read('../jsons/namesId_map.json');
+    names_id_mapData=Storage_Access.read('../data/namesId_map.json');
 
     //followersData=Storage_Access.read("C:/Users/Matew/Desktop/Instagram Unfollow/IG Fake Api/jsons/followers.json");
 }

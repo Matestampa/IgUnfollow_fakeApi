@@ -1,4 +1,7 @@
 const {get_namesIdMapData,get_followersData,sleep}=require("../utils.js")
+
+const {get_authCookies}=require("../../data/auth_cookies.js");
+
 const {ResponseMode}=require("../config/index.js");
 
 const RESP_DELAY=1600;
@@ -53,4 +56,16 @@ async function fakeApi_followers(req,res){
     res.status(200).json(jsonReturnedByMode);
 }
 
-module.exports={fakeApi_userInfo,fakeApi_followers}
+
+async function fakeApi_login(req,res){
+
+    let {username,password}=req.params;
+    
+    let data=get_authCookies(username);
+
+    let jsonReturnedByMode=ResponseMode.get_json(data,username);
+
+    res.status(200).json(jsonReturnedByMode);
+}
+
+module.exports={fakeApi_userInfo,fakeApi_followers,fakeApi_login}
