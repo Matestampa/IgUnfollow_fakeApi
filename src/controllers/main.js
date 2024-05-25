@@ -20,11 +20,19 @@ async function fakeApi_userInfo(req,res){
 }
 
 async function fakeApi_followers(req,res){
-    //let user_Id=req.params.user_id;
-    //let cursor=req.paramas.cursor;
-    let {user_id,cursor}=req.params;
 
-    //let data=get_followersData(user_Id);
+    let {user_id,cursor}=req.params;
+    
+    //######### ESTO PARA SACAR LO DEL ID ############
+    let userId_value=user_id;
+    
+    userId_value=userId_value.split("");
+    username=userId_value.splice(0,userId_value.length-2,2).join("");
+    //#########################################################
+
+    //Data para frenar traer followers de mas
+    let prev_data=get_namesIdMapData(username);
+    
     if (!cursor){cursor=1};
 
     cursor=parseInt(cursor);
@@ -41,6 +49,11 @@ async function fakeApi_followers(req,res){
         foll_name=user_id+"_"+i+"_name"
         next_followers[foll_id]=foll_name;
         next_cursor=i+1
+        
+        //FRenar traer followerrs de mas
+        if (next_cursor>=prev_data.cant_followers){
+            break;
+        }
     }
     
 
